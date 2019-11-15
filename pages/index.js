@@ -1,6 +1,7 @@
 import React from 'react'
 import Head from 'next/head'
 import Nav from '../components/nav'
+import Button from '../components/Button';
 
 const Home = () => (
   <div>
@@ -21,6 +22,7 @@ const Home = () => (
         <a href='https://nextjs.org/docs' className='card'>
           <h3>Documentation &rarr;</h3>
           <p>Learn more about Next.js in the documentation.</p>
+          <Button></Button>
         </a>
         <a href='https://nextjs.org/learn' className='card'>
           <h3>Next.js Learn &rarr;</h3>
