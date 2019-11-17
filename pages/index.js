@@ -1,19 +1,32 @@
 import React from 'react';
 import Head from 'next/head';
+import Link from 'next/link';
+import Layout from '../components/Layout';
 
-const Home = props => (
-  <div>
+import Text from '../components/Text';
+import BidSteps from '../containers/BidSteps';
+import SecondaryDescription from '../containers/SecondaryDescription';
+import Faq from '../components/Faq';
+import MainPageForm from '../containers/MainPageForm';
+
+const Home = () => (
+  <>
     <Head>
       <title>Home</title>
       <link rel="icon" href="/favicon.ico" />
     </Head>
-    {props.userAgent}
-  </div>
+    <div style={{ marginBottom: '15px' }}>
+      <Text variant="h1">
+        Оформи страховку <span style={{ color: '#dd5656' }}>ОГПО</span> и
+        выиграй один из 20 автомобилей и еще 1000 призов
+      </Text>
+      <Link href="/hgg">Подробнее</Link>
+    </div>
+    <BidSteps />
+    <MainPageForm />
+    <SecondaryDescription />
+    <Faq />
+  </>
 );
 
-Home.getInitialProps = async ({ req }) => {
-  const userAgent = req ? req.headers['user-agent'] : navigator.userAgent;
-  return { userAgent };
-};
-
-export default Home;
+export default Layout(Home);

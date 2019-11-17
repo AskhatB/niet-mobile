@@ -1,10 +1,30 @@
 import App from 'next/app';
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
+import { createGlobalStyle, ThemeProvider } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  body {
+    background: #fff;
+    font-family: ${({ theme }) => theme.fontFamily};
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    color: ${({ theme }) => theme.colors.link};
+    text-decoration: none;
+  }
+`;
 
 const theme = {
+  fontFamily: "'Roboto', sans-serif",
   colors: {
-    primary: '#0070f3'
+    primary: '#ffdd2d',
+    dark: '#333',
+    gray: '#eef2f7',
+    darkGray: '#9299a2',
+    red: '#dd5656',
+    link: '#5485b8'
   }
 };
 
@@ -13,6 +33,7 @@ export default class MyApp extends App {
     const { Component, pageProps } = this.props;
     return (
       <ThemeProvider theme={theme}>
+        <GlobalStyle />
         <Component {...pageProps} />
       </ThemeProvider>
     );
