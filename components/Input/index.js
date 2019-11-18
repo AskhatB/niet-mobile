@@ -9,8 +9,12 @@ const Input = props => {
   }
 
   const [colorGray, setColorGray] = React.useState(false);
-  const [focus, setFocus] = React.useState(inputInitialValue);
-  const [inputValue, setInputValue] = React.useState(inputInitialValue);
+  const [focus, setFocus] = React.useState(
+    props.initialValue || inputInitialValue
+  );
+  const [inputValue, setInputValue] = React.useState(
+    props.initialValue || inputInitialValue
+  );
 
   const onInputFocus = () => {
     setFocus(true);
@@ -31,7 +35,7 @@ const Input = props => {
 
   return (
     <Wrap>
-      <InputWrap focus={colorGray} error={props.error}>
+      <InputWrap focus={colorGray} error={props.errorMessage}>
         <Label focus={focus}>{props.label}</Label>
         <InputBlock
           type={props.type}
@@ -39,10 +43,11 @@ const Input = props => {
           onBlur={onInputBlur}
           onChange={props.onChange}
           value={inputValue}
-          onChange={onInputChange}
+          onChange={props.onChange && onInputChange}
+          readOnly={!props.onChange}
         />
       </InputWrap>
-      {props.error && <ErrorMessage>{props.errorMessage}</ErrorMessage>}
+      {props.errorMessage && <ErrorMessage>{props.errorMessage}</ErrorMessage>}
     </Wrap>
   );
 };
@@ -53,7 +58,7 @@ Input.propTypes = {
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
   mask: PropTypes.string,
-  error: PropTypes.bool
+  initialValue: PropTypes.string
 };
 
 export default Input;

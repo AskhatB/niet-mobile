@@ -9,9 +9,11 @@ const borderType = ({ theme, focus, error }) => {
     return 'transparent';
   }
 };
+
 export const Wrap = styled.div`
   margin: 15px 0;
 `;
+
 export const InputWrap = styled.label`
   position: relative;
   display: block;

@@ -25,7 +25,7 @@ const Faq = () => {
       <Accordion>
         {faqData.map((element, index) => {
           return (
-            <AccordionItem>
+            <AccordionItem key={element.title}>
               <CollapseTab onClick={() => changeActiveTab(index)}>
                 {element.title}
               </CollapseTab>

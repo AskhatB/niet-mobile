@@ -11,7 +11,7 @@ export const Wrap = styled.div`
   background: #fff;
   box-shadow: 0px 0 20px rgba(0, 0, 0, 0.1);
   height: 50px;
-  z-index: 999;
+  z-index: 99;
 `;
 
 export const Burger = styled.div``;
