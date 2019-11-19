@@ -18,24 +18,36 @@ const MainPageForm = props => {
   const [carNumberError, setCarNumberError] = React.useState();
   const [phoneError, setPhoneError] = React.useState();
   const [iinError, setIinError] = React.useState();
+  const [personalData, setPersonalData] = React.useState(false);
+  const [rulesAndProfile, setRulesAndProfile] = React.useState(false);
 
   const submitForm = async () => {
     setLoading(true);
-    try {
-      const carModel = await getCarModelByNumber(carNumber);
-      const userInfo = await getUserInfoByIin(phone, iin);
-      const finalPrice = await getFinalPriceByIin(iin);
-      props.onSubmit({
-        carModel,
-        phone,
-        ...userInfo,
-        ...finalPrice
-      });
-    } catch (error) {
-      if (error === 'Неверный формат или номер не существует')
-        setCarNumberError(error);
-    } finally {
+    if (
+      carNumberError ||
+      phoneError ||
+      iinError ||
+      !personalData ||
+      !rulesAndProfile
+    ) {
       setLoading(false);
+    } else {
+      try {
+        const carModel = await getCarModelByNumber(carNumber);
+        const userInfo = await getUserInfoByIin(phone, iin);
+        const finalPrice = await getFinalPriceByIin(iin);
+        props.onSubmit({
+          carModel,
+          phone,
+          ...userInfo,
+          ...finalPrice
+        });
+      } catch (error) {
+        if (error === 'Неверный формат или номер не существует')
+          setCarNumberError(error);
+      } finally {
+        setLoading(false);
+      }
     }
   };
 
@@ -56,11 +68,19 @@ const MainPageForm = props => {
   };
 
   const handleCarNumberError = value => {
-    if (value.length < 8) {
+    if (value.length < 5) {
       setCarNumberError('Неверный формат');
     } else {
       setCarNumberError(false);
     }
+  };
+
+  const changePersonalData = checked => {
+    setPersonalData(checked);
+  };
+
+  const changeRulesAndProfile = checked => {
+    setRulesAndProfile(checked);
   };
 
   return (
@@ -91,14 +111,17 @@ const MainPageForm = props => {
         onBlur={handleCarNumberError}
         errorMessage={carNumberError}
       />
-      <Checkbox label="Я соглашаюсь на сбор и обработку моих персональных данных, ознакомлен с правилами и анкетой" />
-      <Checkbox label="Ознакомлен с правилами и анкетой" />
-      <Button
-        size="l"
-        width="fluid"
-        onClick={submitForm}
-        loading={loading}
-      >
+      <Checkbox
+        label="Я соглашаюсь на сбор и обработку моих персональных данных, ознакомлен с правилами и анкетой"
+        onChange={changePersonalData}
+        required={!personalData}
+      />
+      <Checkbox
+        label="Ознакомлен с правилами и анкетой"
+        onChange={changeRulesAndProfile}
+        required={!rulesAndProfile}
+      />
+      <Button size="l" width="fluid" onClick={submitForm} loading={loading}>
         Далее
       </Button>
     </Wrap>
