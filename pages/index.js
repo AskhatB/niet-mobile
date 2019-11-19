@@ -31,7 +31,9 @@ const Home = () => {
           Оформи страховку <span style={{ color: '#dd5656' }}>ОГПО</span> и
           выиграй один из 20 автомобилей и еще 1000 призов
         </Text>
-        <Link href="/hgg">Подробнее</Link>
+        <Link href="/">
+          <a>Подробнее</a>
+        </Link>
       </div>
       <BidSteps />
       {fullUserInfo && (

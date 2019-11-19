@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Header from '../../components/HeaderBackArrow';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import OgpoFinalPrice from '../../components/OgpoFinalPrice';
 import { Wrap, Layout } from './style';
 
 const BidSandingForm = props => {
@@ -14,6 +15,10 @@ const BidSandingForm = props => {
         <Input label="ИИН" initialValue={props.data.iin} />
         <Input label="Телефон" initialValue={props.data.phone} />
         <Input label="Автомобиль" initialValue={props.data.carModel} />
+        <OgpoFinalPrice
+          price={props.data.price}
+          discountPrice={props.data.discountPrice}
+        />
         <Button width="fluid" size="l">
           Оформить
         </Button>

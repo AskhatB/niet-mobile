@@ -26,6 +26,9 @@ const Input = props => {
       setFocus(false);
     }
     setColorGray(false);
+    if (props.onBlur) {
+      props.onBlur(e.target.value);
+    }
   };
 
   const onInputChange = e => {
@@ -58,7 +61,8 @@ Input.propTypes = {
   onChange: PropTypes.func,
   errorMessage: PropTypes.string,
   mask: PropTypes.string,
-  initialValue: PropTypes.string
+  initialValue: PropTypes.string,
+  onBlur: PropTypes.func
 };
 
 export default Input;
