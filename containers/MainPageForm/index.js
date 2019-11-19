@@ -9,6 +9,7 @@ import { Wrap } from './style';
 import getUserInfoByIin from '../../controllers/getUserInfoByIin';
 import getCarModelByNumber from '../../controllers/getCarModelByNumber';
 import getFinalPriceByIin from '../../controllers/getFinalPriceByIin';
+import writeBid from '../../controllers/writeBid';
 
 const MainPageForm = props => {
   const [phone, setPhone] = React.useState('');
@@ -36,6 +37,13 @@ const MainPageForm = props => {
         const carModel = await getCarModelByNumber(carNumber);
         const userInfo = await getUserInfoByIin(phone, iin);
         const finalPrice = await getFinalPriceByIin(iin);
+        await writeBid({
+          carModel,
+          carNumber,
+          phone,
+          ...userInfo,
+          ...finalPrice
+        });
         props.onSubmit({
           carModel,
           phone,
