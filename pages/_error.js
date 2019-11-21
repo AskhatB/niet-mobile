@@ -1,6 +1,10 @@
 import React from 'react';
+import Error404 from '../containers/Error404';
 
 function Error({ statusCode }) {
+  if (statusCode === 404) {
+    return <Error404 />;
+  }
   return (
     <p>
       {statusCode
