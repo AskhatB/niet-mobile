@@ -21,6 +21,7 @@ const MainPageForm = props => {
   const [iinError, setIinError] = React.useState();
   const [personalData, setPersonalData] = React.useState(false);
   const [rulesAndProfile, setRulesAndProfile] = React.useState(false);
+  const [privileges, setPrivileges] = React.useState(false);
 
   const submitForm = async () => {
     setLoading(true);
@@ -91,6 +92,10 @@ const MainPageForm = props => {
     setRulesAndProfile(checked);
   };
 
+  const changePrivileges = checked => {
+    setPrivileges(checked);
+  };
+
   return (
     <Wrap>
       <Text variant="h5" color="dark">
@@ -111,7 +116,10 @@ const MainPageForm = props => {
         onBlur={handleIinError}
         errorMessage={iinError}
       />
-      <Checkbox label="Льготы для инвалидов и ветеранов" />
+      <Checkbox
+        label="Льготы для инвалидов и ветеранов"
+        onChange={changePrivileges}
+      />
       <Input
         type="text"
         label="Номер автомобиля"

@@ -8,6 +8,7 @@ export default async carNumber => {
       'search-vehicle',
       qs.stringify({ type: 2, word: carNumberUpperCaseFormat })
     );
+    console.log("car info -> ", response);
     return response;
   } catch (error) {
     return error;
