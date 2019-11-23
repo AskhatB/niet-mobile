@@ -13,9 +13,11 @@ const instance = axios.create({
     Authorization: basicAuth,
     'Content-Type': 'application/x-www-form-urlencoded',
     'Accept-Language': 'en-US,en;q=0.9,ru;q=0.8,la;q=0.7',
-    'Access-Control-Allow-Headers': '*',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Headers':
+      'Origin, X-Requested-With, Content-Type, Accept',
     Accept: 'application/json, text/javascript, */*; q=0.01'
   }
-})
+});
 
 export default instance;
