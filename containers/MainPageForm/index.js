@@ -9,6 +9,7 @@ import { Wrap, UnknownError } from './style';
 import getUserInfoByIin from '../../controllers/getUserInfoByIin';
 import getCarModelByNumber from '../../controllers/getCarModelByNumber';
 import getFinalPriceByIin from '../../controllers/getFinalPriceByIin';
+import getPrePrice from '../../controllers/getPrePrice';
 import writeBid from '../../controllers/writeBid';
 
 const MainPageForm = props => {
@@ -40,18 +41,27 @@ const MainPageForm = props => {
       setLoading(false);
     } else {
       try {
-        const carModel = await getCarModelByNumber(carNumber);
+        const { model, region, vin } = await getCarModelByNumber(carNumber);
         const userInfo = await getUserInfoByIin(phone, iin);
+        await getPrePrice(
+          carNumber,
+          model.split(' ')[1],
+          model.split(' ')[0],
+          model.split(' ')[2],
+          region,
+          vin,
+          userInfo.iin
+        );
         const finalPrice = await getFinalPriceByIin(iin);
         await writeBid({
-          carModel,
+          model,
           carNumber,
           phone,
           ...userInfo,
           ...finalPrice
         });
         props.onSubmit({
-          carModel,
+          model,
           phone,
           ...userInfo,
           ...finalPrice
@@ -60,6 +70,7 @@ const MainPageForm = props => {
         if (error === 'Неверный формат или номер не существует') {
           setCarNumberError(error);
         } else {
+          console.log(error)
           setUnknownError(error);
           setTimeout(() => setUnknownError(''), 3000);
         }

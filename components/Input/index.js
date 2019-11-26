@@ -48,6 +48,7 @@ const Input = props => {
           value={inputValue}
           onChange={props.onChange && onInputChange}
           readOnly={!props.onChange}
+          name={props.name}
         />
       </InputWrap>
       {props.errorMessage && <ErrorMessage>{props.errorMessage}</ErrorMessage>}
@@ -62,7 +63,8 @@ Input.propTypes = {
   errorMessage: PropTypes.string,
   mask: PropTypes.string,
   initialValue: PropTypes.string,
-  onBlur: PropTypes.func
+  onBlur: PropTypes.func,
+  name: PropTypes.string
 };
 
 export default Input;

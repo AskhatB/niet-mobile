@@ -11,17 +11,19 @@ const BidSandingForm = props => {
     <Wrap>
       <Header onClose={props.onClose} />
       <Layout>
-        <Input label="Имя" initialValue={props.data.fioAndClass} />
-        <Input label="ИИН" initialValue={props.data.iin} />
-        <Input label="Телефон" initialValue={props.data.phone} />
-        <Input label="Автомобиль" initialValue={props.data.carModel} />
-        <OgpoFinalPrice
-          price={props.data.price}
-          discountPrice={props.data.discountPrice}
-        />
-        <Button width="fluid" size="l">
-          Оформить
-        </Button>
+        <form method="POST" action="https://infinite.kz/niet_ogpo">
+          <Input label="Имя" initialValue={props.data.fioAndClass} />
+          <Input label="ИИН" initialValue={props.data.iin} name="iin"/>
+          <Input label="Телефон" initialValue={props.data.phone} name="phone" />
+          <Input label="Автомобиль" initialValue={props.data.carModel} />
+          <OgpoFinalPrice
+            price={props.data.price}
+            discountPrice={props.data.discountPrice}
+          />
+          <Button width="fluid" size="l" type="submit">
+            Оформить
+          </Button>
+        </form>
       </Layout>
     </Wrap>
   );
