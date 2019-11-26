@@ -4,7 +4,7 @@ import Button from '../../components/Button';
 import Input from '../../components/Input';
 import Checkbox from '../../components/CheckboxWithText';
 import Text from '../../components/Text';
-import { Wrap } from './style';
+import { Wrap, UnknownError } from './style';
 
 import getUserInfoByIin from '../../controllers/getUserInfoByIin';
 import getCarModelByNumber from '../../controllers/getCarModelByNumber';
@@ -22,6 +22,7 @@ const MainPageForm = props => {
   const [personalData, setPersonalData] = React.useState(false);
   const [rulesAndProfile, setRulesAndProfile] = React.useState(false);
   const [privileges, setPrivileges] = React.useState(false);
+  const [unknownError, setUnknownError] = React.useState('');
 
   const submitForm = async () => {
     setLoading(true);
@@ -52,8 +53,12 @@ const MainPageForm = props => {
           ...finalPrice
         });
       } catch (error) {
-        if (error === 'Неверный формат или номер не существует')
+        if (error === 'Неверный формат или номер не существует') {
           setCarNumberError(error);
+        } else {
+          setUnknownError(error);
+          setTimeout(() => setUnknownError(''), 3000);
+        }
       } finally {
         setLoading(false);
       }
@@ -101,6 +106,9 @@ const MainPageForm = props => {
       <Text variant="h5" color="dark">
         Заполните поля ниже
       </Text>
+      {unknownError && (
+        <UnknownError>Произошла неизвестная ошибка</UnknownError>
+      )}
       <Input
         type="text"
         label="Номер телефона"

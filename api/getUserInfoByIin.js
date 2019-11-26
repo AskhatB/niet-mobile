@@ -1,11 +1,9 @@
-import request from '../configs/freedomFinanceApi';
+import request from '../configs/nietServerApi';
 
 export default async (phone, iin) => {
   try {
-    const response = await request.post('get-client-data-by-iin', `iin=${iin}`, {
-      headers: { 'Api-client-phone': phone }
-    });
-    console.log("user info -> ", response);
+    const response = await request.post('/userInfo/by-iin', { phone, iin });
+    console.log('user info -> ', response);
     return response;
   } catch (error) {
     return error;

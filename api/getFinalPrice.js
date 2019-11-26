@@ -1,15 +1,9 @@
-import request from '../configs/freedomFinanceApi';
+import request from '../configs/nietServerApi';
 
 export default async iin => {
   try {
-    const response = await request.post(
-      'set-cost-polis-data',
-      `data=[]&cost=&actions=[1]`,
-      {
-        headers: { 'Api-iin': iin }
-      }
-    );
-    console.log("final price -> ", response);
+    const response = await request.post('/insurance/get-final-price', { iin });
+    console.log('final price -> ', response);
     return response;
   } catch (error) {
     return error;
