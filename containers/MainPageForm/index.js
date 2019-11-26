@@ -21,11 +21,15 @@ const MainPageForm = props => {
   const [iinError, setIinError] = React.useState();
   const [personalData, setPersonalData] = React.useState(false);
   const [rulesAndProfile, setRulesAndProfile] = React.useState(false);
+  const [personalDataError, setPersonalDataError] = React.useState(false);
+  const [rulesAndProfileError, setRulesAndProfileError] = React.useState(false);
   const [privileges, setPrivileges] = React.useState(false);
   const [unknownError, setUnknownError] = React.useState('');
 
   const submitForm = async () => {
     setLoading(true);
+    if (!personalData) setPersonalDataError(true);
+    if (!rulesAndProfile) setRulesAndProfileError(true);
     if (
       carNumberError ||
       phoneError ||
@@ -138,12 +142,14 @@ const MainPageForm = props => {
       <Checkbox
         label="Я соглашаюсь на сбор и обработку моих персональных данных, ознакомлен с правилами и анкетой"
         onChange={changePersonalData}
-        required={!personalData}
+        required={personalDataError}
+        checked={personalData}
       />
       <Checkbox
         label="Ознакомлен с правилами и анкетой"
         onChange={changeRulesAndProfile}
-        required={!rulesAndProfile}
+        required={rulesAndProfileError}
+        checked={rulesAndProfile}
       />
       <Button size="l" width="fluid" onClick={submitForm} loading={loading}>
         Далее

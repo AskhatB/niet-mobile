@@ -7,8 +7,8 @@ export const Wrap = styled.label`
   height: 30px;
   min-height: 30px;
   background: ${({ theme }) => theme.colors.gray};
-  ${({ theme, required }) =>
-    required && `box-shadow: 0 0 0 1px ${theme.colors.red}`};
+  ${({ theme, required, checked }) =>
+    (required && !checked) ? `box-shadow: 0 0 0 1px ${theme.colors.red}` : null};
   border-radius: 4px;
   overflow: hidden;
   & > input {

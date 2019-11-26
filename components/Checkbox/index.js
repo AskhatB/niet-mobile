@@ -5,7 +5,7 @@ import { Wrap } from './style';
 
 const Checkbox = props => {
   return (
-    <Wrap required={props.required}>
+    <Wrap required={props.required} checked={props.checked}>
       <input
         type="checkbox"
         checked={props.checked}
