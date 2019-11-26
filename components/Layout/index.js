@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../Header';
+import Footer from '../Footer';
 import { Wrap, Container } from './style';
 
 const Layout = Component => {
@@ -10,6 +11,7 @@ const Layout = Component => {
         <Container>
           <Component />
         </Container>
+        <Footer />
       </Wrap>
     );
   };
