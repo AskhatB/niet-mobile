@@ -6,6 +6,7 @@ import Text from '../components/Text';
 import BidSteps from '../containers/BidSteps';
 import SecondaryDescription from '../containers/SecondaryDescription';
 import Faq from '../components/Faq';
+import SocialNetworks from '../components/SocialNetworks';
 import MainPageForm from '../containers/MainPageForm';
 import BidSandingForm from '../containers/BidSandingForm';
 
@@ -42,6 +43,7 @@ const Home = () => {
       <MainPageForm onSubmit={onSubmit} />
       <SecondaryDescription />
       <Faq />
+      <SocialNetworks />
     </>
   );
 };
