@@ -3,7 +3,7 @@ import getCarByNumberApi from '../api/getCarByNumber';
 export default async carNumber => {
   try {
     const carInfo = await getCarByNumberApi(carNumber);
-    if (typeof carInfo.data === 'string') {
+    if (typeof carInfo.data === 'string' || carInfo.data.warning) {
       throw 'Неверный формат или номер не существует';
     } else {
       const { MARK, MODEL, NYEAR, REGION_ID, VIN } = carInfo.data.data.Vehicle;

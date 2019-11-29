@@ -52,3 +52,10 @@ export const ErrorMessage = styled.div`
   font-size: 12px;
   margin-top: 5px;
 `;
+
+export const LoaderWrap = styled.div`
+  position: absolute; 
+  right: 8px;
+  top: 50%;
+  transform: translate(0, -50%);
+`;

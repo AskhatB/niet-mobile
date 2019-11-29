@@ -1,6 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrap, InputBlock, Label, InputWrap, ErrorMessage } from './style';
+import Loader from '../../icons/buttonLoader';
+import SuccessIcon from '../../icons/success';
+import {
+  Wrap,
+  InputBlock,
+  Label,
+  InputWrap,
+  ErrorMessage,
+  LoaderWrap
+} from './style';
 
 const Input = props => {
   let inputInitialValue = '';
@@ -49,7 +58,20 @@ const Input = props => {
           onChange={props.onChange && onInputChange}
           readOnly={!props.onChange}
           name={props.name}
+          pattern={props.pattern}
+          inputmode={props.inputmode}
+          disabled={props.loading}
         />
+        {props.loading && (
+          <LoaderWrap>
+            <Loader />
+          </LoaderWrap>
+        )}
+        {props.success && (
+          <LoaderWrap>
+            <SuccessIcon />
+          </LoaderWrap>
+        )}
       </InputWrap>
       {props.errorMessage && <ErrorMessage>{props.errorMessage}</ErrorMessage>}
     </Wrap>
@@ -64,7 +86,11 @@ Input.propTypes = {
   mask: PropTypes.string,
   initialValue: PropTypes.string,
   onBlur: PropTypes.func,
-  name: PropTypes.string
+  name: PropTypes.string,
+  loading: PropTypes.bool,
+  success: PropTypes.bool,
+  pattern: PropTypes.string,
+  inputmode: PropTypes.string
 };
 
 export default Input;

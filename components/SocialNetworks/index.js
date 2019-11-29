@@ -1,7 +1,6 @@
 import React from 'react';
 import VkIcon from '../../icons/vk';
 import FacebookIcon from '../../icons/facebook';
-import OdnoklassnikiIcon from '../../icons/odnoklassniki';
 import TwitterIcon from '../../icons/twitter';
 import YouTubeIcon from '../../icons/youtube';
 import InstagramIcon from '../../icons/instagram';
@@ -15,9 +14,6 @@ const SocialNetwork = () => {
       </Item>
       <Item>
         <FacebookIcon />
-      </Item>
-      <Item>
-        <OdnoklassnikiIcon />
       </Item>
       <Item>
         <TwitterIcon />

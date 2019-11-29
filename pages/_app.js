@@ -24,7 +24,8 @@ const theme = {
     gray: '#eef2f7',
     darkGray: '#9299a2',
     red: '#dd5656',
-    link: '#5485b8'
+    link: '#5485b8',
+    green: '#22a053'
   }
 };
 
