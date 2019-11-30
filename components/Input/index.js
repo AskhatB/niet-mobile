@@ -60,7 +60,7 @@ const Input = props => {
           name={props.name}
           pattern={props.pattern}
           inputmode={props.inputmode}
-          disabled={props.loading}
+          disabled={props.loading || props.disabled}
         />
         {props.loading && (
           <LoaderWrap>
@@ -90,7 +90,8 @@ Input.propTypes = {
   loading: PropTypes.bool,
   success: PropTypes.bool,
   pattern: PropTypes.string,
-  inputmode: PropTypes.string
+  inputmode: PropTypes.string,
+  disabled: PropTypes.bool
 };
 
 export default Input;

@@ -253,6 +253,7 @@ const MainPageForm = props => {
         errorMessage={carNumberError}
         loading={carNumberLoading}
         success={carNumberSuccess}
+        disabled={!iinSuccess}
       />
       <Checkbox
         label="Я соглашаюсь на сбор и обработку моих персональных данных, ознакомлен с правилами и анкетой"
