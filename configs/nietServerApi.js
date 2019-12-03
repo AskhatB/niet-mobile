@@ -1,5 +1,5 @@
 const axios = require('axios');
-const URL = 'http://localhost:5000';
+const URL = 'https://api.niet.kz';
 // https://api.niet.kz
 
 const instance = axios.create({
