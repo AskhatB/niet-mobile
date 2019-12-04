@@ -1,24 +1,8 @@
 import getPrePriceApi from '../api/getPrePrice';
 
-export default async (
-  carNumber,
-  carModel,
-  carMark,
-  carYear,
-  region,
-  vin,
-  iin
-) => {
+export default async carNumberArray => {
   try {
-    const priceData = await getPrePriceApi(
-      carNumber,
-      carModel,
-      carMark,
-      carYear,
-      region,
-      vin,
-      iin
-    );
+    const priceData = await getPrePriceApi(carNumberArray);
     return {
       success: priceData.success
     };

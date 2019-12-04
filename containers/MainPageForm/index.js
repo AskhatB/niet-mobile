@@ -5,7 +5,13 @@ import Input from '../../components/Input';
 import Checkbox from '../../components/CheckboxWithText';
 import Text from '../../components/Text';
 import Modal from '../../components/Modal';
-import { Wrap, UnknownError, AddButton } from './style';
+import {
+  Wrap,
+  UnknownError,
+  AddButton,
+  CarNumberList,
+  CarNumberListItem
+} from './style';
 
 import getUserInfoByIin from '../../controllers/getUserInfoByIin';
 import getAdditionalUser from '../../controllers/getAdditionalUser';
@@ -33,6 +39,22 @@ const MainPageForm = props => {
   const [carNumberLoading, setCarNumberLoading] = React.useState(false);
   const [carNumberSuccess, setCarNumberSuccess] = React.useState(false);
 
+  const [additionalCarNumber, setAdditionalCarNumber] = React.useState('');
+  const [
+    additionalCarNumberError,
+    setAdditionalCarNumberError
+  ] = React.useState('');
+  const [
+    additionalCarNumberLoading,
+    setAdditionalCarNumberLoading
+  ] = React.useState(false);
+  const [
+    additionalCarNumberSuccess,
+    setAdditionalCarNumberSuccess
+  ] = React.useState(false);
+  const [carNumberList, setCarNumberList] = React.useState([]);
+  const [addCarNumberModal, setAddCarNumberModal] = React.useState(false);
+
   const [loading, setLoading] = React.useState(false);
 
   const [personalData, setPersonalData] = React.useState(false);
@@ -57,17 +79,9 @@ const MainPageForm = props => {
       setLoading(false);
     } else {
       try {
-        const { model, region, vin } = await getCarModelByNumber(carNumber);
+        const { model } = await getCarModelByNumber(carNumber);
         const userInfo = await getUserInfoByIin(phone, iin);
-        await getPrePrice(
-          carNumber,
-          model.split(' ')[1],
-          model.split(' ')[0],
-          model.split(' ')[2],
-          region,
-          vin,
-          userInfo.iin
-        );
+        await getPrePrice(carNumberList);
         const finalPrice = await getFinalPriceByIin(iin);
         await writeBid({
           model,
@@ -151,6 +165,17 @@ const MainPageForm = props => {
       setCarNumberLoading(true);
       try {
         const { model, region, vin } = await getCarModelByNumber(carNumber);
+        setCarNumberList(prev => [
+          ...prev,
+          {
+            carMark: model.split(' ')[0],
+            carModel: model.split(' ')[1],
+            carYear: model.split(' ')[2],
+            region,
+            vin,
+            carNumber
+          }
+        ]);
         setCarNumberSuccess(true);
         setCarNumberError(false);
       } catch (error) {
@@ -161,6 +186,8 @@ const MainPageForm = props => {
       setCarNumberLoading(false);
     }
   };
+
+  const handleAdditionalCarNumberBlur = () => {};
 
   const handleAdditionalIin = async () => {
     setAdditionalIinLoading(true);
@@ -196,6 +223,44 @@ const MainPageForm = props => {
     setPrivileges(checked);
   };
 
+  const handleAdditionalCarNumber = async value => {
+    setAdditionalCarNumberSuccess(false);
+    if (additionalCarNumber.length < 5) {
+      setAdditionalCarNumberError('Неверный формат');
+    } else {
+      setAdditionalCarNumberLoading(true);
+      try {
+        const { model, region, vin } = await getCarModelByNumber(
+          additionalCarNumber
+        );
+        setCarNumberList(prev => [
+          ...prev,
+          {
+            carMark: model.split(' ')[0],
+            carModel: model.split(' ')[1],
+            carYear: model.split(' ')[2],
+            region,
+            vin,
+            carNumber
+          }
+        ]);
+        setAdditionalCarNumberSuccess(true);
+        setAdditionalCarNumberError(false);
+        setAddCarNumberModal(false);
+      } catch (error) {
+        setAdditionalCarNumberError('Автомобиль не найден');
+      } finally {
+        setAdditionalCarNumberLoading(false);
+      }
+      setCarNumberLoading(false);
+    }
+  };
+
+  const onAddCarNumberModalClose = () => {
+    setAddCarNumberModal(false);
+  };
+
+  console.log(carNumberList);
   return (
     <Wrap>
       <Modal show={addDriverModal} onClose={() => setAddDriverModal(false)}>
@@ -209,6 +274,20 @@ const MainPageForm = props => {
         />
         <Button size="l" width="fluid" onClick={handleAdditionalIin}>
           Добавить водителя
+        </Button>
+      </Modal>
+      <Modal show={addCarNumberModal} onClose={onAddCarNumberModalClose}>
+        <Input
+          type="text"
+          label="Номер автомобиля"
+          onChange={value => setAdditionalCarNumber(value)}
+          onBlur={handleAdditionalCarNumberBlur}
+          errorMessage={additionalCarNumberError}
+          loading={additionalCarNumberLoading}
+          success={additionalCarNumberSuccess}
+        />
+        <Button size="l" width="fluid" onClick={handleAdditionalCarNumber}>
+          Добавить автомобиль
         </Button>
       </Modal>
       <Text variant="h5" color="dark">
@@ -255,6 +334,18 @@ const MainPageForm = props => {
         success={carNumberSuccess}
         disabled={!iinSuccess}
       />
+      <CarNumberList>
+        {carNumberList.map(val => (
+          <CarNumberListItem>
+            {val.carMark} {val.carModel} {val.carYear} {val.carNumber}
+          </CarNumberListItem>
+        ))}
+      </CarNumberList>
+      {iinSuccess && carNumberSuccess && (
+        <AddButton onClick={() => setAddCarNumberModal(true)}>
+          + Добавить автомобиль
+        </AddButton>
+      )}
       <Checkbox
         label="Я соглашаюсь на сбор и обработку моих персональных данных, ознакомлен с правилами и анкетой"
         onChange={changePersonalData}

@@ -15,7 +15,7 @@ const BidSandingForm = props => {
           <Input label="Имя" initialValue={props.data.fioAndClass} />
           <Input label="ИИН" initialValue={props.data.iin} name="iin"/>
           <Input label="Телефон" initialValue={props.data.phone} name="phone" />
-          <Input label="Автомобиль" initialValue={props.data.carModel} />
+          <Input label="Автомобиль" initialValue={props.data.model} />
           <OgpoFinalPrice
             price={props.data.price}
             discountPrice={props.data.discountPrice}

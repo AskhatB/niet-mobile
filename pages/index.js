@@ -15,6 +15,7 @@ const Home = () => {
 
   const onSubmit = data => {
     setFullUserInfo(data);
+    console.log(data)
   };
 
   const onCloseBidSandingForm = () => {

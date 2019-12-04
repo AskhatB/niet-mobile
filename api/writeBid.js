@@ -7,7 +7,7 @@ export default async data => {
       iin: data.iin,
       carNumber: data.carNumber,
       phone: data.phone,
-      carModel: data.carModel
+      carModel: data.model
     });
     return response;
   } catch (error) {

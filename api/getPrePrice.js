@@ -1,23 +1,9 @@
 import request from '../configs/nietServerApi';
 
-export default async (
-  carNumber,
-  carModel,
-  carMark,
-  carYear,
-  region,
-  vin,
-  iin
-) => {
+export default async carNumberArray => {
   try {
     const response = await request.post('/insurance/pre-price', {
-      carNumber,
-      carModel,
-      carMark,
-      carYear,
-      region,
-      vin,
-      iin
+      carNumberArray
     });
     console.log('preprice api --> ', response);
     return response;

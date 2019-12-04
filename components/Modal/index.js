@@ -33,7 +33,7 @@ const Modal = props => {
 };
 
 Modal.propTypes = {
-  children: PropTypes.element,
+  children: PropTypes.arrayOf(PropTypes.element),
   show: PropTypes.bool,
   onClose: PropTypes.func
 };

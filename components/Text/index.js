@@ -13,7 +13,11 @@ const Text = props => {
 
 Text.propTypes = {
   variant: PropTypes.string,
-  children: PropTypes.string,
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+    PropTypes.string
+  ]),
   color: PropTypes.string
 };
 
