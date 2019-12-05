@@ -23,10 +23,11 @@ export const InputWrap = styled.label`
   padding: 10px;
   box-sizing: border-box;
   border: 1px solid ${borderType};
+  overflow: hidden;
 `;
 
 export const InputBlock = styled.input`
-  background: inherit;
+  background: transparent;
   outline: none;
   border: none;
   font-family: ${({ theme }) => theme.fontFamily};
