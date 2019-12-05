@@ -28,6 +28,7 @@ const MainPageForm = props => {
   const [iinError, setIinError] = React.useState();
   const [iinLoading, setIinLoading] = React.useState(false);
   const [iinSuccess, setIinSuccess] = React.useState(false);
+  const [iinList, setIinList] = React.useState([]);
 
   const [additionalIin, setAdditionalIin] = React.useState('');
   const [additionalIinError, setAdditionalIinError] = React.useState();
@@ -119,8 +120,9 @@ const MainPageForm = props => {
       setIinLoading(true);
       try {
         const userInfo = await getUserInfoByIin(phone, iin);
-        if (userInfo.fioAndClass || userInfo.fioAndClass) {
+        if (userInfo.fioAndClass) {
           setIinSuccess(true);
+          setIinList(prev => [...prev, userInfo.fioAndClass]);
         } else {
           setIinError('Ползователь не найден');
         }
@@ -144,8 +146,9 @@ const MainPageForm = props => {
       setIinError(false);
       try {
         const userInfo = await getUserInfoByIin(phone, iin);
-        if (userInfo.fioAndClass || userInfo.fioAndClass) {
+        if (userInfo.fioAndClass) {
           setIinSuccess(true);
+          setIinList(prev => [...prev, userInfo.fioAndClass]);
         } else {
           setIinError('Ползователь не найден');
         }
@@ -193,16 +196,11 @@ const MainPageForm = props => {
     setAdditionalIinLoading(true);
     try {
       const { model, region, vin } = await getCarModelByNumber(carNumber);
-      await getPrePrice(
-        carNumber,
-        model.split(' ')[1],
-        model.split(' ')[0],
-        model.split(' ')[2],
-        region,
-        vin,
-        additionalIin
-      );
+      await getPrePrice(carNumberList);
       const userInfo = await getAdditionalUser(iin, additionalIin);
+      if (userInfo.fioAndClass) {
+        setIinList(prev => [...prev, userInfo.fioAndClass]);
+      }
       console.log('efwewf', userInfo);
     } catch (error) {
       setAdditionalIinError('Добавление невозможно');
@@ -259,8 +257,6 @@ const MainPageForm = props => {
   const onAddCarNumberModalClose = () => {
     setAddCarNumberModal(false);
   };
-
-  console.log(carNumberList);
   return (
     <Wrap>
       <Modal show={addDriverModal} onClose={() => setAddDriverModal(false)}>
@@ -315,6 +311,12 @@ const MainPageForm = props => {
         pattern="[0-9]*"
         inputmode="numeric"
       />
+      {console.log(iinList)}
+      <CarNumberList>
+        {iinList.map(val => (
+          <CarNumberListItem>{val}</CarNumberListItem>
+        ))}
+      </CarNumberList>
       {iinSuccess && carNumberSuccess && (
         <AddButton onClick={() => setAddDriverModal(true)}>
           + Добавить водителя

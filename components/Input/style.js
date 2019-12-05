@@ -33,6 +33,7 @@ export const InputBlock = styled.input`
   font-size: 16px;
   margin-top: 20px;
   width: 100%;
+  display: block;
 `;
 
 export const Label = styled.div`

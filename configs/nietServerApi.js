@@ -1,5 +1,5 @@
 const axios = require('axios');
-const URL = 'https://api.niet.kz';
+const URL = 'http://localhost:5000';
 // 'http://localhost:5000';
 // 'https://api.niet.kz'
 
