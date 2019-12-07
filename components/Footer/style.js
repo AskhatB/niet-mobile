@@ -4,7 +4,7 @@ export const Wrap = styled.div`
   margin-top: 20px;
   padding: 0 16px;
   box-sizing: border-box;
-  height: 180px;
+  height: 220px;
   position: relative;
   background: ${({ theme }) => theme.colors.gray};
 `;
