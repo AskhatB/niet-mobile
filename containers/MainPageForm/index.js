@@ -82,7 +82,7 @@ const MainPageForm = props => {
       try {
         const { model } = await getCarModelByNumber(carNumber);
         const userInfo = await getUserInfoByIin(phone, iin);
-        await getPrePrice(carNumberList);
+        await getPrePrice(carNumberList, iin);
         const finalPrice = await getFinalPriceByIin(iin);
         await writeBid({
           model,
@@ -196,7 +196,7 @@ const MainPageForm = props => {
     setAdditionalIinLoading(true);
     try {
       const { model, region, vin } = await getCarModelByNumber(carNumber);
-      await getPrePrice(carNumberList);
+      await getPrePrice(carNumberList, iin);
       const userInfo = await getAdditionalUser(iin, additionalIin);
       if (userInfo.fioAndClass) {
         setIinList(prev => [...prev, userInfo.fioAndClass]);

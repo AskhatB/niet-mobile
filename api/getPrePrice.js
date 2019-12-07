@@ -1,9 +1,10 @@
 import request from '../configs/nietServerApi';
 
-export default async carNumberArray => {
+export default async (carNumberArray, iin) => {
   try {
     const response = await request.post('/insurance/pre-price', {
-      carNumberArray
+      carNumberArray,
+      iin
     });
     console.log('preprice api --> ', response);
     return response;
