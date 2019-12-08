@@ -28,6 +28,7 @@ const SecondaryDescription = () => {
           компаний и сами выберете подходящее.
         </p>
       </Content>
+      <hr />
     </Wrap>
   );
 };
