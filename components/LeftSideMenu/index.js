@@ -20,7 +20,7 @@ const LeftSideMenu = props => {
         </MenuItem>
         <MenuItem>
           <Link href="/about">
-            <a>О нас</a>
+            <a>О компании</a>
           </Link>
         </MenuItem>
         <MenuItem>
