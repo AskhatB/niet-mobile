@@ -14,6 +14,10 @@ const GlobalStyle = createGlobalStyle`
     color: ${({ theme }) => theme.colors.link};
     text-decoration: none;
   }
+
+  input, textarea, label, a {
+    -webkit-tap-highlight-color: transparent;
+  }
 `;
 
 const theme = {
