@@ -41,8 +41,13 @@ const Input = props => {
   };
 
   const onInputChange = e => {
-    setInputValue(e.target.value);
-    props.onChange(e.target.value);
+    if (props.upperCase) {
+      setInputValue(e.target.value.toUpperCase());
+      props.onChange(e.target.value.toUpperCase());
+    } else {
+      setInputValue(e.target.value);
+      props.onChange(e.target.value);
+    }
   };
 
   return (
@@ -91,7 +96,8 @@ Input.propTypes = {
   success: PropTypes.bool,
   pattern: PropTypes.string,
   inputmode: PropTypes.string,
-  disabled: PropTypes.bool
+  disabled: PropTypes.bool,
+  upperCase: PropTypes.bool
 };
 
 export default Input;

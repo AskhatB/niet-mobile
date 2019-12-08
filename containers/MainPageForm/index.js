@@ -122,7 +122,7 @@ const MainPageForm = props => {
         const userInfo = await getUserInfoByIin(phone, iin);
         if (userInfo.fioAndClass) {
           setIinSuccess(true);
-          setIinList(prev => [...prev, userInfo.fioAndClass]);
+          setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
         } else {
           setIinError('Ползователь не найден');
         }
@@ -148,7 +148,7 @@ const MainPageForm = props => {
         const userInfo = await getUserInfoByIin(phone, iin);
         if (userInfo.fioAndClass) {
           setIinSuccess(true);
-          setIinList(prev => [...prev, userInfo.fioAndClass]);
+          setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
         } else {
           setIinError('Ползователь не найден');
         }
@@ -199,8 +199,8 @@ const MainPageForm = props => {
       await getPrePrice(carNumberList, iin);
       const userInfo = await getAdditionalUser(iin, additionalIin);
       if (userInfo.fioAndClass) {
-        setIinList(prev => [...prev, userInfo.fioAndClass]);
-      }
+        setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
+      }ƒ
       console.log('efwewf', userInfo);
     } catch (error) {
       setAdditionalIinError('Добавление невозможно');
@@ -281,6 +281,7 @@ const MainPageForm = props => {
           errorMessage={additionalCarNumberError}
           loading={additionalCarNumberLoading}
           success={additionalCarNumberSuccess}
+          upperCase
         />
         <Button size="l" width="fluid" onClick={handleAdditionalCarNumber}>
           Добавить автомобиль
@@ -311,7 +312,6 @@ const MainPageForm = props => {
         pattern="[0-9]*"
         inputmode="numeric"
       />
-      {console.log(iinList)}
       <CarNumberList>
         {iinList.map(val => (
           <CarNumberListItem>{val}</CarNumberListItem>
@@ -335,6 +335,7 @@ const MainPageForm = props => {
         loading={carNumberLoading}
         success={carNumberSuccess}
         disabled={!iinSuccess}
+        upperCase
       />
       <CarNumberList>
         {carNumberList.map(val => (

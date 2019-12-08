@@ -2,7 +2,8 @@ import styled from 'styled-components';
 
 export const Wrap = styled.div``;
 export const CollapseTab = styled.div`
-  color: ${({ theme }) => theme.colors.darkGray};
+  color: ${({ theme, active }) =>
+    active ? theme.colors.dark : theme.colors.darkGray};
   font-weight: bold;
   border-bottom: 1px solid ${({ theme }) => theme.colors.gray};
   padding: 10px 0;
