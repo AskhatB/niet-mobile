@@ -195,13 +195,13 @@ const MainPageForm = props => {
   const handleAdditionalIin = async () => {
     setAdditionalIinLoading(true);
     try {
-      const { model, region, vin } = await getCarModelByNumber(carNumber);
       await getPrePrice(carNumberList, iin);
-      const userInfo = await getAdditionalUser(iin, additionalIin);
-      if (userInfo.fioAndClass) {
-        setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
-      }ƒ
-      console.log('efwewf', userInfo);
+      const { data } = await getAdditionalUser(iin, additionalIin);
+      console.log('user additinal info ===>', data);
+      if (data.response) {
+        setIinList(prev => [...new Set([...prev, data.response])]);
+        setAddDriverModal(false);
+      }
     } catch (error) {
       setAdditionalIinError('Добавление невозможно');
     } finally {
