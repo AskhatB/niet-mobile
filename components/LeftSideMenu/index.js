@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Link from 'next/link';
+import LogoIcon from '../../icons/logo';
 import CloseIcon from '../../icons/close';
 import { Wrap, Header, Close, Menu, MenuItem } from './style';
 
@@ -8,6 +9,7 @@ const LeftSideMenu = props => {
   return (
     <Wrap show={props.show}>
       <Header>
+        <LogoIcon></LogoIcon>
         <Close onClick={props.close}>
           <CloseIcon />
         </Close>

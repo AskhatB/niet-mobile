@@ -2,6 +2,14 @@ import styled from 'styled-components';
 
 export const Wrap = styled.div`
   margin: 50px 0;
+  & > hr {
+    width: 50%;
+    height: 1px;
+    background: ${({ theme }) => theme.colors.darkGray};
+    margin: 0 auto;
+    outline: none;
+    border: none;
+  }
 `;
 
 export const Content = styled.div`

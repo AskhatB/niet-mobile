@@ -4,13 +4,24 @@ export const Wrap = styled.div`
   margin-top: 20px;
   padding: 0 16px;
   box-sizing: border-box;
-  height: 250px;
+  height: 230px;
   position: relative;
   background: ${({ theme }) => theme.colors.gray};
+  overflow: hidden;
 `;
 export const Copyright = styled.div`
   position: absolute;
   bottom: 16px;
-  font-size: 14px;
+  font-size: 12px;
   color: ${({ theme }) => theme.colors.darkGray};
+`;
+
+export const Menu = styled.div`
+  display: flex;
+  margin-top: 10px;
+`;
+export const MenuItem = styled.div`
+  font-size: 12px;
+  text-decoration: underline;
+  margin-right: 10px;
 `;

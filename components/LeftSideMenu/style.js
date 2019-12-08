@@ -16,7 +16,7 @@ export const Wrap = styled.div`
 `;
 export const Header = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
   align-items: center;
   height: 50px;
   background: ${({ theme }) => theme.colors.gray};
