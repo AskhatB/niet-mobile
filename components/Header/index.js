@@ -2,6 +2,7 @@ import React from 'react';
 import LogoIcon from '../../icons/logo';
 import BurgerIcon from '../../icons/burger';
 import LeftSideMenu from '../LeftSideMenu';
+import Link from 'next/link';
 import { Wrap, Burger, Logo } from './style';
 
 const Header = () => {
@@ -21,9 +22,11 @@ const Header = () => {
       <Burger onClick={showSideMenu}>
         <BurgerIcon />
       </Burger>
-      <Logo>
-        <LogoIcon></LogoIcon>
-      </Logo>
+      <Link href="/">
+        <Logo>
+          <LogoIcon></LogoIcon>
+        </Logo>
+      </Link>
     </Wrap>
   );
 };
