@@ -21,22 +21,19 @@ const ContactsPage = () => {
           <ContainerLeft>
             <MapMarkIcon />
           </ContainerLeft>
-          <ContainerRight>
-            Назарбаева проспект, 240В Самал 2, Медеуский район, Алматы, A26F8D3
-            4 этаж
-          </ContainerRight>
+          <ContainerRight>Кабанбай Батыра 89, офис 24</ContainerRight>
         </Contaner>
         <Contaner>
           <ContainerLeft>
             <EmailIcon />
           </ContainerLeft>
-          <ContainerRight>info@ffins.kz</ContainerRight>
+          <ContainerRight>helloniet35@gmail.com</ContainerRight>
         </Contaner>
         <Contaner>
           <ContainerLeft>
             <PhoneIcon />
           </ContainerLeft>
-          <ContainerRight>+7 701 031 65 35</ContainerRight>
+          <ContainerRight>+7 777 165 37 03</ContainerRight>
         </Contaner>
       </Content>
     </Wrap>
