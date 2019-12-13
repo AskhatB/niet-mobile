@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import InputMask from 'react-input-mask';
 
 const borderType = ({ theme, focus, error }) => {
   if (focus && !error) {
@@ -26,7 +27,7 @@ export const InputWrap = styled.label`
   overflow: hidden;
 `;
 
-export const InputBlock = styled.input`
+export const InputBlock = styled(InputMask)`
   background: transparent;
   outline: none;
   border: none;

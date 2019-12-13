@@ -300,6 +300,8 @@ const MainPageForm = props => {
         onChange={value => setPhone(value)}
         onBlur={handlePhoneBlur}
         errorMessage={phoneError}
+        mask="+7 (999) 999 99 99"
+        maskChar=" "
       />
       <Input
         type="text"
@@ -311,6 +313,8 @@ const MainPageForm = props => {
         success={iinSuccess}
         pattern="[0-9]*"
         inputmode="numeric"
+        mask="999999999999"
+        maskChar=''
       />
       <CarNumberList>
         {iinList.map(val => (

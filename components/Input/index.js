@@ -13,9 +13,6 @@ import {
 
 const Input = props => {
   let inputInitialValue = '';
-  if (props.mask === 'phone') {
-    inputInitialValue = '+7';
-  }
 
   const [colorGray, setColorGray] = React.useState(false);
   const [focus, setFocus] = React.useState(
@@ -66,6 +63,8 @@ const Input = props => {
           pattern={props.pattern}
           inputmode={props.inputmode}
           disabled={props.loading || props.disabled}
+          mask={props.mask}
+          maskChar={props.maskChar}
         />
         {props.loading && (
           <LoaderWrap>
@@ -97,7 +96,9 @@ Input.propTypes = {
   pattern: PropTypes.string,
   inputmode: PropTypes.string,
   disabled: PropTypes.bool,
-  upperCase: PropTypes.bool
+  upperCase: PropTypes.bool,
+  mask: PropTypes.string,
+  maskChar: PropTypes.string
 };
 
 export default Input;

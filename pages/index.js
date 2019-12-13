@@ -27,6 +27,7 @@ const Home = () => {
       <Head>
         <title>Niet Insurance</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="viewport" content="width=device-width, user-scalable=no" />
       </Head>
       <div style={{ marginBottom: '15px' }}>
         <Text variant="h1">
