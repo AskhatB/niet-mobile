@@ -5,6 +5,7 @@ import Input from '../../components/Input';
 import Checkbox from '../../components/CheckboxWithText';
 import Text from '../../components/Text';
 import Modal from '../../components/Modal';
+import Switcher from '../../components/Switcher';
 import {
   Wrap,
   UnknownError,
@@ -16,6 +17,7 @@ import {
 import getUserInfoByIin from '../../controllers/getUserInfoByIin';
 import getAdditionalUser from '../../controllers/getAdditionalUser';
 import getCarModelByNumber from '../../controllers/getCarModelByNumber';
+import getCarModelByDataSheet from '../../controllers/getCarModelByDataSheet';
 import getFinalPriceByIin from '../../controllers/getFinalPriceByIin';
 import getPrePrice from '../../controllers/getPrePrice';
 import writeBid from '../../controllers/writeBid';
@@ -39,6 +41,13 @@ const MainPageForm = props => {
   const [carNumberError, setCarNumberError] = React.useState();
   const [carNumberLoading, setCarNumberLoading] = React.useState(false);
   const [carNumberSuccess, setCarNumberSuccess] = React.useState(false);
+
+  const [carDataSheet, setCarDataSheet] = React.useState('');
+  const [carDataSheetError, setCarDataSheetError] = React.useState();
+  const [carDataSheetLoading, setCarDataSheetLoading] = React.useState(false);
+  const [carDataSheetSuccess, setCarDataSheetSuccess] = React.useState(false);
+
+  const [carInfoTab, setCarInfoTab] = React.useState(0);
 
   const [additionalCarNumber, setAdditionalCarNumber] = React.useState('');
   const [
@@ -115,21 +124,23 @@ const MainPageForm = props => {
     setIinSuccess(false);
     if (value.length < 8) {
       setPhoneError('Неверный формат номера');
-    } else if (value.length > 8 && iin.length === 12) {
+    } else {
       setPhoneError(false);
-      setIinLoading(true);
-      try {
-        const userInfo = await getUserInfoByIin(phone, iin);
-        if (userInfo.fioAndClass) {
-          setIinSuccess(true);
-          setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
-        } else {
-          setIinError('Ползователь не найден');
+      if (iin.length === 12) {
+        setIinLoading(true);
+        try {
+          const userInfo = await getUserInfoByIin(phone, iin);
+          if (userInfo.fioAndClass) {
+            setIinSuccess(true);
+            setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
+          } else {
+            setIinError('Ползователь не найден');
+          }
+        } catch (error) {
+          console.log(error);
+        } finally {
+          setIinLoading(false);
         }
-      } catch (error) {
-        console.log(error);
-      } finally {
-        setIinLoading(false);
       }
     }
   };
@@ -167,7 +178,10 @@ const MainPageForm = props => {
     } else {
       setCarNumberLoading(true);
       try {
-        const { model, region, vin } = await getCarModelByNumber(carNumber);
+        const { model, region, vin } =
+          carInfoTab === 0
+            ? await getCarModelByNumber(carNumber)
+            : await getCarModelByDataSheet(carDataSheet);
         setCarNumberList(prev => [
           ...prev,
           {
@@ -257,6 +271,11 @@ const MainPageForm = props => {
   const onAddCarNumberModalClose = () => {
     setAddCarNumberModal(false);
   };
+
+  const handleCarInfoTabChange = active => {
+    setCarInfoTab(active);
+  };
+
   return (
     <Wrap>
       <Modal show={addDriverModal} onClose={() => setAddDriverModal(false)}>
@@ -314,7 +333,7 @@ const MainPageForm = props => {
         pattern="[0-9]*"
         inputmode="numeric"
         mask="999999999999"
-        maskChar=''
+        maskChar=""
       />
       <CarNumberList>
         {iinList.map(val => (
@@ -330,17 +349,36 @@ const MainPageForm = props => {
         label="Льготы для инвалидов и ветеранов"
         onChange={changePrivileges}
       />
-      <Input
-        type="text"
-        label="Номер автомобиля"
-        onChange={value => setCarNumber(value)}
-        onBlur={handleCarNumberBlur}
-        errorMessage={carNumberError}
-        loading={carNumberLoading}
-        success={carNumberSuccess}
-        disabled={!iinSuccess}
-        upperCase
-      />
+      <Switcher
+        tabs={['Номер авто', 'СРТС']}
+        onTabChange={handleCarInfoTabChange}
+      ></Switcher>
+      {carInfoTab === 0 ? (
+        <Input
+          type="text"
+          label="Номер автомобиля"
+          onChange={value => setCarNumber(value)}
+          onBlur={handleCarNumberBlur}
+          errorMessage={carNumberError}
+          loading={carNumberLoading}
+          success={carNumberSuccess}
+          disabled={!iinSuccess}
+          upperCase
+        />
+      ) : (
+        <Input
+          type="text"
+          label="Введите номер техпаспорта"
+          onChange={value => setCarDataSheet(value)}
+          onBlur={handleCarNumberBlur}
+          errorMessage={carDataSheetError}
+          loading={carDataSheetLoading}
+          success={carDataSheetSuccess}
+          disabled={!iinSuccess}
+          upperCase
+        />
+      )}
+
       <CarNumberList>
         {carNumberList.map(val => (
           <CarNumberListItem>

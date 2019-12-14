@@ -1,8 +1,8 @@
 import getCarByNumberApi from '../api/getCar';
 
-export default async carNumber => {
+export default async dataSheet => {
   try {
-    const carInfo = await getCarByNumberApi(carNumber, 2);
+    const carInfo = await getCarByNumberApi(dataSheet, 1);
     if (typeof carInfo.data === 'string' || carInfo.data.warning) {
       throw 'Неверный формат или номер не существует';
     } else {

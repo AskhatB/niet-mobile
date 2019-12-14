@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrap, Price } from './style';
+import { Wrap, Price, Text } from './style';
 import toValidCost from '../../services/toValidCost';
 
 const OgpoFinalPrice = props => {
   return (
     <Wrap>
+      <Text>Общая сумма</Text>
       <Price>
         {props.discountPrice
           ? toValidCost(props.discountPrice)

@@ -25,6 +25,7 @@ export const InputWrap = styled.label`
   box-sizing: border-box;
   border: 1px solid ${borderType};
   overflow: hidden;
+  opacity: ${({ disabled }) => (disabled ? '0.5' : '1')};
 `;
 
 export const InputBlock = styled(InputMask)`
@@ -57,7 +58,7 @@ export const ErrorMessage = styled.div`
 `;
 
 export const LoaderWrap = styled.div`
-  position: absolute; 
+  position: absolute;
   right: 8px;
   top: 50%;
   transform: translate(0, -50%);

@@ -14,3 +14,5 @@ export const Price = styled.div`
     discount &&
     `text-decoration: line-through; color: ${theme.colors.darkGray};`}
 `;
+
+export const Text = styled.div``;

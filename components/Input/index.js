@@ -49,7 +49,11 @@ const Input = props => {
 
   return (
     <Wrap>
-      <InputWrap focus={colorGray} error={props.errorMessage}>
+      <InputWrap
+        focus={colorGray}
+        error={props.errorMessage}
+        disabled={props.loading || props.disabled}
+      >
         <Label focus={focus}>{props.label}</Label>
         <InputBlock
           type={props.type}
