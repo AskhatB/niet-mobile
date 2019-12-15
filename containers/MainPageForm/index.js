@@ -171,6 +171,26 @@ const MainPageForm = props => {
     }
   };
 
+  const handleCarDataSheetBlur = async value => {
+    setCarDataSheetSuccess(false);
+    if (value.length < 7) {
+      setCarDataSheetError('Необходимо 8 символов');
+    } else {
+      setCarDataSheetLoading(true);
+      try {
+        const data = await getCarModelByDataSheet(carDataSheet);
+        console.log('cdw', data);
+        setCarDataSheetSuccess(true);
+        setCarDataSheetError(false);
+      } catch (error) {
+        console.log('ereere', error);
+        setCarDataSheetError(error);
+      } finally {
+        setCarDataSheetLoading(false);
+      }
+    }
+  };
+
   const handleCarNumberBlur = async value => {
     setCarNumberSuccess(false);
     if (value.length < 5) {
@@ -178,10 +198,7 @@ const MainPageForm = props => {
     } else {
       setCarNumberLoading(true);
       try {
-        const { model, region, vin } =
-          carInfoTab === 0
-            ? await getCarModelByNumber(carNumber)
-            : await getCarModelByDataSheet(carDataSheet);
+        const { model, region, vin } = await getCarModelByNumber(carNumber);
         setCarNumberList(prev => [
           ...prev,
           {
@@ -320,6 +337,8 @@ const MainPageForm = props => {
         onBlur={handlePhoneBlur}
         errorMessage={phoneError}
         mask="+7 (999) 999 99 99"
+        pattern="[0-9]*"
+        inputmode="numeric"
         maskChar=" "
       />
       <Input
@@ -370,7 +389,7 @@ const MainPageForm = props => {
           type="text"
           label="Введите номер техпаспорта"
           onChange={value => setCarDataSheet(value)}
-          onBlur={handleCarNumberBlur}
+          onBlur={handleCarDataSheetBlur}
           errorMessage={carDataSheetError}
           loading={carDataSheetLoading}
           success={carDataSheetSuccess}
