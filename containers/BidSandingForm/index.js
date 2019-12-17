@@ -23,7 +23,7 @@ const BidSandingForm = props => {
             discountPrice={props.data.discountPrice}
           />
           <Button width="fluid" size="l" type="submit">
-            Оформить
+            Подтвердить
           </Button>
         </form>
       </Layout>

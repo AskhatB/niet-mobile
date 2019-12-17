@@ -11,7 +11,8 @@ import {
   UnknownError,
   AddButton,
   CarNumberList,
-  CarNumberListItem
+  CarNumberListItem,
+  MainHeading
 } from './style';
 
 import getUserInfoByIin from '../../controllers/getUserInfoByIin';
@@ -323,9 +324,9 @@ const MainPageForm = props => {
           Добавить автомобиль
         </Button>
       </Modal>
-      <Text variant="h5" color="dark">
+      <MainHeading>
         Заполните поля ниже
-      </Text>
+      </MainHeading>
       {unknownError && (
         <UnknownError>Произошла неизвестная ошибка</UnknownError>
       )}

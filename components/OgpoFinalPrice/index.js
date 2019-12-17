@@ -1,20 +1,29 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Wrap, Price, Text } from './style';
+import { Wrap, Price, Text, FlexBlock, PriceOne } from './style';
 import toValidCost from '../../services/toValidCost';
 
 const OgpoFinalPrice = props => {
   return (
     <Wrap>
-      <Text>Общая сумма</Text>
-      <Price>
-        {props.discountPrice
-          ? toValidCost(props.discountPrice)
-          : toValidCost(props.price)} ₸
-      </Price>
-      {props.discountPrice && (
-        <Price discount>{toValidCost(props.price)} ₸</Price>
-      )}
+      <FlexBlock>
+        <Text>Сумма страховки</Text>
+        <PriceOne>{toValidCost(props.price)} ₸</PriceOne>
+      </FlexBlock>
+      <FlexBlock>
+        <Text>Скидка </Text>
+        <PriceOne>
+          {100 - Math.round((props.discountPrice / props.price) * 100)} %
+        </PriceOne>
+      </FlexBlock>
+      <FlexBlock>
+        <Text>Сумма скидки </Text>
+        <PriceOne>{toValidCost(Math.round(props.price - props.discountPrice))} ₸</PriceOne>
+      </FlexBlock>
+      <FlexBlock>
+        <PriceOne>Итоговая сумма</PriceOne>
+        <Price>{toValidCost(props.discountPrice)} ₸</Price>
+      </FlexBlock>
     </Wrap>
   );
 };

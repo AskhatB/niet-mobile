@@ -18,6 +18,7 @@ export const Wrap = styled.div`
   left: 0;
   top: 0;
   animation: ${onSlideLeft} 0.2s;
+  overflow: auto;
 `;
 
 export const Layout = styled.div`

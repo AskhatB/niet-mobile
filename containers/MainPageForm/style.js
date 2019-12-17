@@ -19,3 +19,13 @@ export const CarNumberListItem = styled.div`
   font-weight: bold;
   margin-bottom: 5px;
 `;
+
+export const MainHeading = styled.div`
+  font-size: 20px;
+  color: ${({ theme }) => theme.colors.gray};
+  background: ${({ theme }) => theme.colors.darkGray};
+  padding: 20px 0;
+  margin-left: -16px;
+  margin-right: -16px;
+  text-align: center;
+`;

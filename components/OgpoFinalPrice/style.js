@@ -15,4 +15,19 @@ export const Price = styled.div`
     `text-decoration: line-through; color: ${theme.colors.darkGray};`}
 `;
 
-export const Text = styled.div``;
+export const PriceOne = styled.div`
+  font-weight: bold;
+`;
+
+export const FlexBlock = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  border-top: 1px solid ${({ theme }) => theme.colors.gray};
+`;
+
+export const Text = styled.div`
+  margin-top: 10px;
+`;
