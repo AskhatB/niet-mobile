@@ -6,6 +6,7 @@ import Text from '../components/Text';
 import BidSteps from '../containers/BidSteps';
 import SecondaryDescription from '../containers/SecondaryDescription';
 import Faq from '../components/Faq';
+import MainBanner from '../components/MainBanner';
 import SocialNetworks from '../components/SocialNetworks';
 import MainPageForm from '../containers/MainPageForm';
 import BidSandingForm from '../containers/BidSandingForm';
@@ -15,7 +16,7 @@ const Home = () => {
 
   const onSubmit = data => {
     setFullUserInfo(data);
-    console.log(data)
+    console.log(data);
   };
 
   const onCloseBidSandingForm = () => {
@@ -29,7 +30,8 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, user-scalable=no" />
       </Head>
-      <div style={{ marginBottom: '15px' }}>
+      <MainBanner />
+      {/* <div style={{ marginBottom: '15px' }}>
         <Text variant="h1">
           Оформи страховку <span style={{ color: '#dd5656' }}>ОГПО</span> и
           выиграй один из 20 автомобилей и еще 1000 призов
@@ -37,7 +39,7 @@ const Home = () => {
         <Link href="/">
           <a>Подробнее</a>
         </Link>
-      </div>
+      </div> */}
       <BidSteps />
       {fullUserInfo && (
         <BidSandingForm data={fullUserInfo} onClose={onCloseBidSandingForm} />
