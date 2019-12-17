@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 export const Wrap = styled.div`
-  margin-top: calc(100% - 230px);
+  margin-top: 20px;
   padding: 0 16px;
   box-sizing: border-box;
   height: 230px;
