@@ -22,6 +22,7 @@ import getCarModelByDataSheet from '../../controllers/getCarModelByDataSheet';
 import getFinalPriceByIin from '../../controllers/getFinalPriceByIin';
 import getPrePrice from '../../controllers/getPrePrice';
 import writeBid from '../../controllers/writeBid';
+import phoneForQuery from '../../services/phoneForQuery';
 
 const MainPageForm = props => {
   const [phone, setPhone] = React.useState('');
@@ -90,20 +91,22 @@ const MainPageForm = props => {
       setLoading(false);
     } else {
       try {
+        const phoneLocal = phoneForQuery(phone);
+        console.log(phoneLocal)
         const { model } = await getCarModelByNumber(carNumber);
-        const userInfo = await getUserInfoByIin(phone, iin);
+        const userInfo = await getUserInfoByIin(phoneLocal, iin);
         await getPrePrice(carNumberList, iin);
         const finalPrice = await getFinalPriceByIin(iin);
         await writeBid({
           model,
           carNumber,
-          phone,
+          phone: phoneLocal,
           ...userInfo,
           ...finalPrice
         });
         props.onSubmit({
           model,
-          phone,
+          phone: phoneLocal,
           ...userInfo,
           ...finalPrice
         });
@@ -130,7 +133,7 @@ const MainPageForm = props => {
       if (iin.length === 12) {
         setIinLoading(true);
         try {
-          const userInfo = await getUserInfoByIin(phone, iin);
+          const userInfo = await getUserInfoByIin(phoneForQuery(phone), iin);
           if (userInfo.fioAndClass) {
             setIinSuccess(true);
             setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
@@ -157,7 +160,7 @@ const MainPageForm = props => {
       setIinLoading(true);
       setIinError(false);
       try {
-        const userInfo = await getUserInfoByIin(phone, iin);
+        const userInfo = await getUserInfoByIin(phoneForQuery(phone), iin);
         if (userInfo.fioAndClass) {
           setIinSuccess(true);
           setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);

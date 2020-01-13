@@ -10,6 +10,7 @@ import MainBanner from '../components/MainBanner';
 import SocialNetworks from '../components/SocialNetworks';
 import MainPageForm from '../containers/MainPageForm';
 import BidSandingForm from '../containers/BidSandingForm';
+import phoneForQuery from '../services/phoneForQuery';
 
 const Home = () => {
   const [fullUserInfo, setFullUserInfo] = React.useState();
@@ -22,7 +23,7 @@ const Home = () => {
   const onCloseBidSandingForm = () => {
     setFullUserInfo(false);
   };
-
+  
   return (
     <>
       <Head>

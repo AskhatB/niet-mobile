@@ -6,6 +6,7 @@ import Button from '../../components/Button';
 import OgpoFinalPrice from '../../components/OgpoFinalPrice';
 import Text from '../../components/Text';
 import { Wrap, Layout } from './style';
+import phoneForQuery from '../../services/phoneForQuery';
 
 const BidSandingForm = props => {
   return (
@@ -13,7 +14,7 @@ const BidSandingForm = props => {
       <Header onClose={props.onClose} />
       <Layout>
         <Text variant="h5">Расчет стоимости</Text>
-        <form method="POST" action="https://infinite.kz/niet_ogpo">
+        <form method="POST" action="https://ffins.kz/niet_ogpo">
           <Input label="Имя" initialValue={props.data.fioAndClass} />
           <Input label="ИИН" initialValue={props.data.iin} name="iin" />
           <Input label="Телефон" initialValue={props.data.phone} name="phone" />
