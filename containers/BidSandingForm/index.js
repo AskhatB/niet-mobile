@@ -16,7 +16,7 @@ const BidSandingForm = props => {
         <Text variant="h5">Расчет стоимости</Text>
         <form method="POST" action="https://ffins.kz/niet_ogpo">
           {/* <Input label="Имя" initialValue={props.data.fioAndClass} /> */}
-          {/* <Input label="ИИН" initialValue={props.data.iin} name="iin" /> */}
+          <Input label="ИИН" initialValue={props.data.iin} name="iin" />
           {/* <Input label="Телефон" initialValue={props.data.phone} name="phone" /> */}
           <Input label="Автомобиль" initialValue={props.data.model} />
           <OgpoFinalPrice
