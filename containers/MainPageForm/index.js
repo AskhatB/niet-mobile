@@ -235,8 +235,8 @@ const MainPageForm = props => {
       console.log('user additinal info ===>', data);
       if (data.response) {
         setIinList(prev => [...new Set([...prev, data.response])]);
-        setAddDriverModal(false);
       }
+      setAddDriverModal(false);
     } catch (error) {
       setAdditionalIinError('Добавление невозможно');
     } finally {
