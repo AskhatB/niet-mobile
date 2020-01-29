@@ -33,6 +33,7 @@ const MainPageForm = props => {
   const [iinLoading, setIinLoading] = React.useState(false);
   const [iinSuccess, setIinSuccess] = React.useState(false);
   const [iinList, setIinList] = React.useState([]);
+  const [clientList, setClientList] = React.useState([]);
 
   const [additionalIin, setAdditionalIin] = React.useState('');
   const [additionalIinError, setAdditionalIinError] = React.useState();
@@ -96,7 +97,7 @@ const MainPageForm = props => {
         const { model } = await getCarModelByNumber(carNumber);
         const userInfo = await getUserInfoByIin(phoneLocal, iin);
         await getPrePrice(carNumberList, iin);
-        const finalPrice = await getFinalPriceByIin(iin);
+        const finalPrice = await getFinalPriceByIin(iinList);
         await writeBid({
           model,
           carNumber,
@@ -136,7 +137,8 @@ const MainPageForm = props => {
           const userInfo = await getUserInfoByIin(phoneForQuery(phone), iin);
           if (userInfo.fioAndClass) {
             setIinSuccess(true);
-            setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
+            setClientList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
+            setIinList(prev => [...new Set([...prev, iin])]);
           } else {
             setIinError('Ползователь не найден');
           }
@@ -163,7 +165,8 @@ const MainPageForm = props => {
         const userInfo = await getUserInfoByIin(phoneForQuery(phone), iin);
         if (userInfo.fioAndClass) {
           setIinSuccess(true);
-          setIinList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
+          setClientList(prev => [...new Set([...prev, userInfo.fioAndClass])]);
+          setIinList(prev => [...new Set([...prev, iin])]);
         } else {
           setIinError('Ползователь не найден');
         }
@@ -233,8 +236,9 @@ const MainPageForm = props => {
       await getPrePrice(carNumberList, iin);
       const { data } = await getAdditionalUser(iin, additionalIin);
       console.log('user additinal info ===>', data);
-      if (data.response) {
-        setIinList(prev => [...new Set([...prev, data.response])]);
+      if (data) {
+        setClientList(prev => [...new Set([...prev, data.data[0].fio])]);
+        setIinList(prev => [...new Set([...prev, additionalIin])]);
       }
       setAddDriverModal(false);
     } catch (error) {
@@ -359,7 +363,7 @@ const MainPageForm = props => {
         maskChar=""
       />
       <CarNumberList>
-        {iinList.map(val => (
+        {clientList.map(val => (
           <CarNumberListItem>{val}</CarNumberListItem>
         ))}
       </CarNumberList>
